@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Add Program - Picklr</title>
+
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+    <link rel="stylesheet" href="/css/site.css?v=AZwlr0O5Qy1x_A6Y9CdMECi0MAQ_uCckFsG30OoWpRI" />
+</head>
+
+<body>
+
+    
+<div class="container">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-danger mt-2 rounded">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" href="/Admin">
+                    Picklr Admin
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#adminNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="adminNav">
+
+                    <!-- Left-side navigation -->
+                    <div class="navbar-nav me-auto">
+
+                        <a class="nav-item nav-link " href="/Admin/Club/List">
+                            Club
+                        </a>
+
+                        <a class="nav-item nav-link active" href="/Admin/Program/List">
+                            Program
+                        </a>
+
+                        <a class="nav-item nav-link " href="/Admin/User/List">
+                            User
+                        </a>
+
+                    </div>
+
+                    <!-- Right-side navigation -->
+                    <div class="navbar-nav ms-auto">
+
+                        <a class="nav-item nav-link" href="/">
+                            Site
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+
+<h2 class="mt-3">
+    Add Program
+</h2>
+
+<form method="post" class="mt-3" style="max-width:700px;" action="/Admin/Program/AddEdit">
+
+    
+
+    <input type="hidden" data-val="true" data-val-required="The ProgramID field is required." id="ProgramID" name="ProgramID" value="0" />
+
+    <!-- Name -->
+    <div class="mb-3">
+        <label class="form-label" for="Name">Name</label>
+
+        <input class="form-control" type="text" data-val="true" data-val-remote="TEST_REMOTE_123" data-val-remote-additionalfields="*.Name,*.ProgramID" data-val-remote-url="/Validation/CheckProgramName" data-val-required="Please enter a program name." id="Name" name="Name" value="" />
+
+        <span class="text-danger field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+        <label class="form-label" for="Description">Description</label>
+
+        <textarea class="form-control" rows="3" data-val="true" data-val-length="Description must be between 10 and 200 characters." data-val-length-max="200" data-val-length-min="10" data-val-required="Please enter a description." id="Description" maxlength="200" name="Description">
+</textarea>
+
+        <span class="text-danger field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+    </div>
+
+    <!-- Fee -->
+    <div class="mb-3">
+
+        <label class="form-label" for="Fee">Fee</label>
+
+        <div class="input-group">
+
+            <span class="input-group-text">$</span>
+
+            <input class="form-control" type="text" data-val="true" data-val-number="The field Fee must be a number." data-val-range="Fee must be between $1 and $10,000." data-val-range-max="10000" data-val-range-min="1" data-val-required="Please enter the fee." id="Fee" name="Fee" value="0.00" />
+
+        </div>
+
+        <span class="text-danger field-validation-valid" data-valmsg-for="Fee" data-valmsg-replace="true"></span>
+
+    </div>
+
+    <!-- Club -->
+    <div class="mb-3">
+
+        <label class="form-label" for="ClubID">Club</label>
+
+        <select class="form-select" data-val="true" data-val-required="Please select a club." id="ClubID" name="ClubID">
+
+            <option value="">-- Select Club --</option>
+
+        <option value="1">Picklr Downtown</option>
+<option value="3">Picklr New York</option>
+<option value="2">Picklr Northside</option>
+</select>
+
+        <span class="text-danger field-validation-valid" data-valmsg-for="ClubID" data-valmsg-replace="true"></span>
+
+    </div>
+
+    <!-- Available Days -->
+    <div class="mb-3">
+
+        <label class="form-label">
+            Available Days
+        </label>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Monday field is required." id="Monday" name="Monday" value="true" />
+                <label for="Monday">Monday</label>
+            </div>
+
+            <div class="col-md-3">
+                <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Tuesday field is required." id="Tuesday" name="Tuesday" value="true" />
+                <label for="Tuesday">Tuesday</label>
+            </div>
+
+            <div class="col-md-3">
+                <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Wednesday field is required." id="Wednesday" name="Wednesday" value="true" />
+                <label for="Wednesday">Wednesday</label>
+            </div>
+
+            <div class="col-md-3">
+                <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Thursday field is required." id="Thursday" name="Thursday" value="true" />
+                <label for="Thursday">Thursday</label>
+            </div>
+
+            <div class="col-md-3 mt-2">
+                <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Friday field is required." id="Friday" name="Friday" value="true" />
+                <label for="Friday">Friday</label>
+            </div>
+
+            <div class="col-md-3 mt-2">
+                <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Saturday field is required." id="Saturday" name="Saturday" value="true" />
+                <label for="Saturday">Saturday</label>
+            </div>
+
+            <div class="col-md-3 mt-2">
+                <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Sunday field is required." id="Sunday" name="Sunday" value="true" />
+                <label for="Sunday">Sunday</label>
+            </div>
+
+        </div>
+
+        <span class="text-danger field-validation-valid" data-valmsg-for="ValidateDays" data-valmsg-replace="true"></span>
+
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Add
+    </button>
+
+    <a class="btn btn-secondary" href="/Admin/Program">
+        Cancel
+    </a>
+
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8DV6y-Gw9OJHkuRZxIkVtWfp16s2phovrZ6UDcbIVjfUoIF6HwS5yq5FfBhQ8KG0flJ-MclYuo4qSlGqpLo4yMS0ini6L01p-Qm3NU0LkwKp6OUyr9BEQirsICwQLrzWJP13VDCXh9QWYh3DCUH5eJQ" /><input name="Monday" type="hidden" value="false" /><input name="Tuesday" type="hidden" value="false" /><input name="Wednesday" type="hidden" value="false" /><input name="Thursday" type="hidden" value="false" /><input name="Friday" type="hidden" value="false" /><input name="Saturday" type="hidden" value="false" /><input name="Sunday" type="hidden" value="false" /></form>
+
+        
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <script src="/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="/js/at-least-one-day.js"></script>
+
+    </main>
+
+    <footer class="mt-4 py-3 border-top text-center text-muted">
+        <p>&copy; 2026 Picklr Admin Portal</p>
+    </footer>
+</div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+
+</body>
+
+</html>

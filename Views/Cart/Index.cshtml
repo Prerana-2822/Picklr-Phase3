@@ -1,0 +1,264 @@
+@model ProgramsViewModel
+
+@{
+    ViewData["Title"] = "My Cart";
+
+    string? activeClubRoute =
+        Model.ActiveClub == "all"
+            ? null
+            : Model.ActiveClub;
+
+    string activeDateRoute =
+        Model.ActiveDate.HasValue
+            ? Model.ActiveDate.Value.ToString("yyyy-MM-dd")
+            : DateTime.Today.ToString("yyyy-MM-dd");
+}
+
+
+<h2 class="mb-4">
+    My Cart
+</h2>
+
+
+@if (Model.CartPrograms == null || !Model.CartPrograms.Any())
+{
+    <div class="alert alert-info">
+        Your cart is empty.
+    </div>
+
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       asp-route-ClubId="@activeClubRoute"
+       asp-route-Date="@activeDateRoute"
+       class="btn btn-secondary">
+
+        Continue Browsing
+
+    </a>
+}
+else
+{
+
+    <form asp-controller="Cart"
+          asp-action="Confirm"
+          method="post">
+
+
+        <div class="table-responsive">
+
+
+            <table class="table table-bordered align-middle">
+
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>
+                            Select
+                        </th>
+
+                        <th>
+                            Program
+                        </th>
+
+                        <th>
+                            Club
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Fee
+                        </th>
+
+                        <th>
+                            Remove
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                @foreach (CartProgramViewModel item in Model.CartPrograms)
+                {
+
+                    <tr>
+
+
+                        <td class="text-center">
+
+
+                            <input type="checkbox"
+                                   name="selectedPrograms"
+                                   value="@item.Program.ProgramID"
+                                   checked />
+
+
+                        </td>
+
+
+
+                        <td>
+
+                            @item.Program.Name
+
+                        </td>
+
+
+
+                        <td>
+
+                            @item.Program.Club?.Name
+
+                        </td>
+
+
+
+                        <td>
+
+                            @item.Date.ToString("MM/dd/yyyy")
+
+                        </td>
+
+
+
+                        <td>
+
+                            @item.Program.Fee.ToString("C2")
+
+                        </td>
+
+
+
+                        <td>
+
+
+                            <form asp-controller="Cart"
+                                  asp-action="Remove"
+                                  method="post">
+
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@item.Program.ProgramID" />
+
+
+                                <input type="hidden"
+                                       name="date"
+                                       value="@item.Date.ToString("yyyy-MM-dd")" />
+
+
+                                <button type="submit"
+                                        class="btn btn-outline-danger">
+
+                                    Remove
+
+                                </button>
+
+
+                            </form>
+
+
+                        </td>
+
+
+                    </tr>
+
+                }
+
+
+                </tbody>
+
+
+
+                <tfoot>
+
+                    <tr class="cart-total-row">
+
+
+                        <th colspan="4"
+                            class="text-end">
+
+                            Total
+
+                        </th>
+
+
+                        <th>
+
+                            @Model.CartTotal.ToString("C2")
+
+                        </th>
+
+
+                        <th></th>
+
+
+                    </tr>
+
+
+                </tfoot>
+
+
+            </table>
+
+
+        </div>
+
+
+
+        <div class="d-flex gap-2 flex-wrap mt-3">
+
+
+            <button type="submit"
+                    class="btn btn-success">
+
+                Review Reservation
+
+            </button>
+
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               asp-route-ClubId="@activeClubRoute"
+               asp-route-Date="@activeDateRoute"
+               class="btn btn-secondary">
+
+                Continue Browsing
+
+            </a>
+
+
+        </div>
+
+
+    </form>
+
+
+
+    <form asp-controller="Cart"
+          asp-action="Clear"
+          method="post"
+          class="mt-2">
+
+
+        <button type="submit"
+                class="btn btn-outline-danger">
+
+            Clear All
+
+        </button>
+
+
+    </form>
+
+}

@@ -1,0 +1,217 @@
+@model ProgramsViewModel
+
+@{
+    ViewData["Title"] = "Program Details";
+}
+
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+
+        <h2 class="mb-3">
+
+            Program Details
+
+        </h2>
+
+
+
+
+        <div class="card shadow-sm">
+
+
+
+            <div class="card-header bg-success text-white">
+
+
+                <h4 class="mb-0">
+
+                    @Model.Program.Name
+
+                </h4>
+
+
+            </div>
+
+
+
+
+            <div class="card-body">
+
+
+
+                <p class="card-text">
+
+                    <strong>
+                        Club:
+                    </strong>
+
+                    @Model.Program.Club?.Name
+
+                </p>
+
+
+
+
+                @if (Model.Program.Club != null)
+                {
+
+                    <p class="card-text">
+
+
+                        <strong>
+                            Location:
+                        </strong>
+
+
+                        @Model.Program.Club.Location
+
+
+                    </p>
+
+                }
+
+
+
+
+
+                <p class="card-text">
+
+
+                    <strong>
+                        Description:
+                    </strong>
+
+
+                    <br />
+
+
+                    @Model.Program.Description
+
+
+                </p>
+
+
+
+
+
+                <p class="card-text">
+
+
+                    <strong>
+                        Available Days:
+                    </strong>
+
+
+                    @Model.Program.AvailableDays
+
+
+                </p>
+
+
+
+
+
+                <p class="card-text fs-5">
+
+
+                    <strong>
+                        Fee:
+                    </strong>
+
+
+                    @Model.Program.Fee.ToString("C2")
+
+
+                </p>
+
+
+
+
+
+
+                <form asp-controller="Cart"
+                      asp-action="Add"
+                      method="post">
+
+
+
+                    <input type="hidden"
+                           name="id"
+                           value="@Model.Program.ProgramID" />
+
+
+
+                    <input type="hidden"
+                           name="date"
+                           value="@Model.ActiveDate?.ToString("yyyy-MM-dd")" />
+
+
+
+
+
+
+                    <button type="submit"
+                            class="btn btn-success">
+
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        Reserve Now
+
+
+                    </button>
+
+
+
+
+                    <a asp-controller="Wishlist"
+                       asp-action="Add"
+                       asp-route-id="@Model.Program.ProgramID"
+                       class="btn btn-outline-danger ms-2">
+
+
+                        <i class="fa-regular fa-heart"></i>
+
+                        Wishlist
+
+
+                    </a>
+
+
+
+
+
+
+                    <a asp-controller="Home"
+                       asp-action="Index"
+                       class="btn btn-secondary ms-2">
+
+
+                        Back to Programs
+
+
+                    </a>
+
+
+
+                </form>
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>

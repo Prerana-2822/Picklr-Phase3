@@ -1,0 +1,263 @@
+@using Picklr.Models
+
+@{
+    Layout = "_Layout";
+
+    string ctrl =
+        ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+
+    string act =
+        ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+
+    var session =
+        new PicklrSession(Context.Session);
+
+    int cartCount =
+        session.GetCartCount();
+}
+
+
+<div class="container">
+
+
+    <header>
+
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-success mt-2 rounded">
+
+
+            <div class="container-fluid">
+
+
+                <a class="navbar-brand fw-bold"
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                    Picklr
+
+                </a>
+
+
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNav">
+
+
+                    <span class="navbar-toggler-icon"></span>
+
+
+                </button>
+
+
+
+
+                <div class="collapse navbar-collapse"
+                     id="mainNav">
+
+
+
+                    <div class="navbar-nav me-auto">
+
+
+
+                        <a class="nav-item nav-link @(ctrl == "Home" && act == "About" ? "active" : "")"
+                           asp-controller="Home"
+                           asp-action="About">
+
+                            About
+
+                        </a>
+
+
+
+
+                        <a class="nav-item nav-link @(ctrl == "Home" && act == "Club" ? "active" : "")"
+                           asp-controller="Home"
+                           asp-action="Club">
+
+                            Club
+
+                        </a>
+
+
+
+
+                        <a class="nav-item nav-link @(ctrl == "Home" && act == "Program" ? "active" : "")"
+                           asp-controller="Home"
+                           asp-action="Program">
+
+                            Program
+
+                        </a>
+
+
+
+
+                        <a class="nav-item nav-link @(ctrl == "Home" && act == "Shop" ? "active" : "")"
+                           asp-controller="Home"
+                           asp-action="Shop">
+
+                            Shop
+
+                        </a>
+
+
+
+                    </div>
+
+
+
+
+
+                    <div class="navbar-nav ms-auto align-items-center">
+
+
+                        <!-- Wishlist -->
+
+                        <a class="nav-item nav-link position-relative me-3"
+                           asp-controller="Wishlist"
+                           asp-action="Index">
+
+
+                            <i class="fa-regular fa-heart"></i>
+
+
+                        </a>
+
+
+
+
+
+                        <!-- Cart -->
+
+                        <a class="nav-item nav-link position-relative me-3"
+                           asp-controller="Cart"
+                           asp-action="Index">
+
+
+
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+
+
+
+                            @if (cartCount > 0)
+                            {
+
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                                    @cartCount
+
+                                </span>
+
+                            }
+
+
+
+                        </a>
+
+
+
+
+
+                        <!-- Admin -->
+
+                        <a class="nav-item nav-link"
+                           asp-area="Admin"
+                           asp-controller="Home"
+                           asp-action="Index">
+
+                            Admin
+
+                        </a>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </nav>
+
+
+    </header>
+
+
+
+
+
+    <main class="mt-3">
+
+
+        @* Global success message *@
+
+        @if (TempData["message"] != null)
+        {
+
+            <div class="container mt-3">
+
+
+                <div class="alert alert-success text-center fw-semibold"
+                     role="alert"
+                     style="font-size:18px; padding:18px; border-radius:10px;">
+
+
+                    ✓ @TempData["message"]
+
+
+                </div>
+
+
+            </div>
+
+        }
+
+
+
+
+
+        @RenderBody()
+
+
+
+    </main>
+
+
+
+
+
+    <footer class="mt-4 py-3 border-top text-center">
+
+
+        <p>
+
+            &copy; @DateTime.Now.Year Picklr
+
+        </p>
+
+
+    </footer>
+
+
+
+
+</div>
+
+
+
+
+
+@section scripts
+{
+
+}

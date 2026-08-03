@@ -1,0 +1,190 @@
+@model List<WishlistItem>
+
+@{
+    ViewData["Title"] = "My Wishlist";
+}
+
+
+<h2 class="mb-4">
+    My Wishlist
+</h2>
+
+
+
+@if (!Model.Any())
+{
+
+    <div class="alert alert-info">
+
+        Your wishlist is empty.
+
+    </div>
+
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-secondary">
+
+        Browse Programs
+
+    </a>
+
+}
+else
+{
+
+
+    <div class="table-responsive">
+
+
+        <table class="table table-bordered table-striped align-middle">
+
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>
+                        Program
+                    </th>
+
+                    <th>
+                        Club
+                    </th>
+
+                    <th>
+                        Fee
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+
+                @foreach (WishlistItem item in Model)
+                {
+
+                    <tr>
+
+
+                        <td>
+
+                            <strong>
+                                @item.Name
+                            </strong>
+
+
+                            <div class="small text-muted">
+
+                                @item.Description
+
+                            </div>
+
+                        </td>
+
+
+
+                        <td>
+
+                            @item.ClubName
+
+                        </td>
+
+
+
+                        <td>
+
+                            @item.Fee.ToString("C2")
+
+                        </td>
+
+
+
+                        <td>
+
+
+                            <div class="d-flex gap-2">
+
+
+                                <!-- Move To Cart -->
+
+                                <form asp-controller="Wishlist"
+                                      asp-action="MoveToCart"
+                                      method="post">
+
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.ProgramID" />
+
+
+
+                                    <button type="submit"
+                                            class="btn btn-success btn-sm">
+
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        Move to Cart
+
+                                    </button>
+
+
+                                </form>
+
+
+
+
+                                <!-- Remove -->
+
+                                <form asp-controller="Wishlist"
+                                      asp-action="Remove"
+                                      method="post">
+
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.ProgramID" />
+
+
+
+                                    <button type="submit"
+                                            class="btn btn-outline-danger btn-sm">
+
+                                        <i class="fa-solid fa-trash"></i>
+                                        Remove
+
+                                    </button>
+
+
+                                </form>
+
+
+                            </div>
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                }
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+}

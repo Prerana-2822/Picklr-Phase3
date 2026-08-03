@@ -1,0 +1,368 @@
+@model ProgramsViewModel
+
+@{
+    ViewData["Title"] = "Find a Program";
+
+    DateTime selectedDate =
+        Model.ActiveDate ?? DateTime.Today;
+}
+
+
+<div class="program-background">
+
+
+    <div class="container">
+
+
+        <div class="row program-page-row">
+
+
+            <!-- Filter Panel -->
+
+            <div class="col-lg-3 col-md-4 mb-4">
+
+
+                <div class="card filter-card">
+
+
+                    <div class="card-header">
+
+                        Filter Programs
+
+                    </div>
+
+
+
+                    <div class="card-body">
+
+
+                        <form asp-controller="Home"
+                              asp-action="Index"
+                              method="get">
+
+
+                            <div class="mb-3">
+
+
+                                <label class="form-label fw-semibold">
+
+                                    Club
+
+                                </label>
+
+
+                                <select asp-for="ActiveClub"
+                                        class="form-select">
+
+
+                                    <option value="all">
+
+                                        All Clubs
+
+                                    </option>
+
+
+                                    @foreach (Club club in Model.Clubs)
+                                    {
+
+                                        <option value="@club.ClubID">
+
+                                            @club.Name
+
+                                        </option>
+
+                                    }
+
+
+                                </select>
+
+
+                            </div>
+
+
+
+                            <div class="mb-3">
+
+
+                                <label class="form-label fw-semibold">
+
+                                    Date
+
+                                </label>
+
+
+                                <select asp-for="ActiveDate"
+                                        class="form-select">
+
+
+                                    @for (int i = 0; i < 7; i++)
+                                    {
+
+                                        DateTime optionDate =
+                                            DateTime.Today.AddDays(i);
+
+
+
+                                        <option value="@optionDate.ToString("yyyy-MM-dd")">
+
+
+                                            @if (i == 0)
+                                            {
+
+                                                <text>
+                                                    Today (@optionDate.ToString("ddd, MMM d"))
+                                                </text>
+
+                                            }
+                                            else
+                                            {
+
+                                                @optionDate.ToString("ddd, MMM d")
+
+                                            }
+
+
+                                        </option>
+
+
+                                    }
+
+
+                                </select>
+
+
+                            </div>
+
+
+
+                            <button type="submit"
+                                    class="btn btn-success w-100 mb-2">
+
+                                Search
+
+                            </button>
+
+
+
+                            <a asp-controller="Home"
+                               asp-action="Index"
+                               class="btn btn-outline-secondary w-100">
+
+                                Clear
+
+                            </a>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <!-- Programs -->
+
+            <div class="col-lg-9 col-md-8">
+
+
+
+                <h2 class="mb-3">
+
+                    Programs for
+                    @selectedDate.ToString("dddd, MMMM d")
+
+                </h2>
+
+
+
+
+                @if (!Model.Programs.Any())
+                {
+
+                    <div class="alert alert-info">
+
+                        No programs found.
+
+                    </div>
+
+                }
+                else
+                {
+
+
+                    <div class="table-responsive">
+
+
+                        <table class="table table-bordered table-striped align-middle">
+
+
+                            <thead class="table-dark">
+
+
+                                <tr>
+
+                                    <th>
+                                        Program
+                                    </th>
+
+
+                                    <th>
+                                        Club
+                                    </th>
+
+
+                                    <th>
+                                        Fee
+                                    </th>
+
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+
+                            </thead>
+
+
+
+                            <tbody>
+
+
+                                @foreach (PicklProgram program in Model.Programs)
+                                {
+
+
+                                    <tr>
+
+
+                                        <td>
+
+
+                                            <strong>
+
+                                                @program.Name
+
+                                            </strong>
+
+
+                                            @if (!string.IsNullOrWhiteSpace(program.Description))
+                                            {
+
+                                                <div class="small text-muted">
+
+                                                    @program.Description
+
+                                                </div>
+
+                                            }
+
+
+                                        </td>
+
+
+
+                                        <td>
+
+                                            @program.Club?.Name
+
+                                        </td>
+
+
+
+                                        <td>
+
+                                            @program.Fee.ToString("C2")
+
+                                        </td>
+
+
+
+
+                                        <td class="text-center">
+
+
+
+                                            <a asp-controller="Home"
+                                               asp-action="Details"
+                                               asp-route-id="@program.ProgramID"
+                                               class="btn btn-outline-success btn-sm mb-1">
+
+                                                Details
+
+                                            </a>
+
+
+
+
+
+                                            <form asp-controller="Cart"
+                                                  asp-action="Add"
+                                                  method="post">
+
+
+                                                <input type="hidden"
+                                                       name="id"
+                                                       value="@program.ProgramID" />
+
+
+
+                                                <input type="hidden"
+                                                       name="date"
+                                                       value="@selectedDate.ToString("yyyy-MM-dd")" />
+
+
+
+                                                <button type="submit"
+                                                        class="btn btn-success btn-sm">
+
+                                                    Reserve Now
+
+                                                </button>
+
+
+                                            </form>
+
+
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                }
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                }
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>

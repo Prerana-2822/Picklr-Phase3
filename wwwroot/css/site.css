@@ -1,0 +1,128 @@
+/* ===========================================================
+   Programs Page Background
+=========================================================== */
+
+
+.program-background {
+
+    position: relative;
+
+    background-image: url('/img/picklr-background.png');
+
+    background-repeat: no-repeat;
+
+    background-position: center top;
+
+    background-size: 900px;
+
+    padding: 30px;
+
+    min-height: 650px;
+
+}
+
+
+
+/* Keep content above background */
+
+.program-background .container {
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+
+
+/* ===========================================================
+   Filter Programs Card
+=========================================================== */
+
+
+.filter-card {
+
+    background-color: rgba(255,255,255,0.95);
+
+    border: 1px solid #dee2e6;
+
+    border-radius: .25rem;
+
+}
+
+
+
+.filter-card .card-header {
+
+    background-color: #198754;
+
+    color: white;
+
+    font-weight: 600;
+
+}
+
+
+
+.filter-card .card-body {
+
+    background-color: white;
+
+}
+
+
+
+/* ===========================================================
+   Program Table
+=========================================================== */
+
+
+.program-background h2 {
+
+    background-color: rgba(255,255,255,0.90);
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+}
+
+
+
+.program-background .table-responsive {
+
+    background-color: rgba(255,255,255,0.90);
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+}
+
+
+
+/* ===========================================================
+   Cart Page
+=========================================================== */
+
+
+.cart-total-row th,
+.cart-total-row td {
+
+    background-color: #e9ecef !important;
+
+    font-weight: 600;
+
+}
+
+
+
+.btn-outline-danger:hover {
+
+    color: white;
+
+    background-color: #dc3545;
+
+    border-color: #dc3545;
+
+}

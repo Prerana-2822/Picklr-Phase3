@@ -1,0 +1,90 @@
+@model IEnumerable<Picklr.Models.PicklProgram>
+
+@{
+    ViewData["Title"] = "Programs";
+}
+
+<h2 class="mt-3">Programs</h2>
+
+<a asp-area="Admin"
+   asp-controller="Program"
+   asp-action="AddEdit"
+   class="btn btn-primary mb-3">
+    Add Program
+</a>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info">
+        No programs are available.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-striped align-middle">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Club</th>
+                    <th>Available Days</th>
+                    <th>Fee</th>
+                    <th class="text-center">Edit</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var program in Model)
+                {
+                    <tr>
+
+                        <td>@program.Name</td>
+
+                        <td>@program.Club?.Name</td>
+
+                        <td>
+                            @if (string.IsNullOrWhiteSpace(program.AvailableDays))
+                            {
+                                <span>Not specified</span>
+                            }
+                            else
+                            {
+                                @program.AvailableDays
+                            }
+                        </td>
+
+                        <td>@program.Fee.ToString("C2")</td>
+
+                        <td class="text-center">
+                            <a asp-area="Admin"
+                               asp-controller="Program"
+                               asp-action="AddEdit"
+                               asp-route-id="@program.ProgramID"
+                               class="btn btn-sm btn-outline-secondary">
+                                Edit
+                            </a>
+                        </td>
+
+                        <td class="text-center">
+                            <a asp-area="Admin"
+                               asp-controller="Program"
+                               asp-action="Delete"
+                               asp-route-id="@program.ProgramID"
+                               class="btn btn-sm btn-outline-danger">
+                                Delete
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+}

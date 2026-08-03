@@ -1,0 +1,126 @@
+@model Picklr.Models.ProgramsViewModel
+
+@{
+    ViewData["Title"] = "Confirm Reservation";
+}
+
+<h2 class="mb-4">
+    Confirm Your Reservation
+</h2>
+
+
+@if (Model.CartPrograms == null ||
+    !Model.CartPrograms.Any())
+{
+    <div class="alert alert-info">
+        No programs selected.
+    </div>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Return to Cart
+    </a>
+}
+else
+{
+
+    <table class="table table-bordered">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>
+                    Program
+                </th>
+
+                <th>
+                    Club
+                </th>
+
+                <th>
+                    Date
+                </th>
+
+                <th>
+                    Fee
+                </th>
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        @foreach(var item in Model.CartPrograms)
+        {
+
+            <tr>
+
+                <td>
+                    @item.Program.Name
+                </td>
+
+                <td>
+                    @item.Program.Club?.Name
+                </td>
+
+                <td>
+                    @item.Date.ToString("MM/dd/yyyy")
+                </td>
+
+                <td>
+                    @item.Program.Fee.ToString("C2")
+                </td>
+
+            </tr>
+
+        }
+
+        </tbody>
+
+
+        <tfoot>
+
+            <tr>
+
+                <th colspan="3"
+                    class="text-end">
+                    Total
+                </th>
+
+                <th>
+                    @Model.CartTotal.ToString("C2")
+                </th>
+
+            </tr>
+
+        </tfoot>
+
+
+    </table>
+
+
+    <form asp-controller="Cart"
+          asp-action="Complete"
+          method="post">
+
+
+        <button type="submit"
+                class="btn btn-success">
+
+            Confirm Reservation
+
+        </button>
+
+
+        <a asp-action="Index"
+           class="btn btn-secondary ms-2">
+
+            Back to Cart
+
+        </a>
+
+
+    </form>
+
+}
